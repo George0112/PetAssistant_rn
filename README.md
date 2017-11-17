@@ -14,6 +14,4 @@
 
 If encourge error with icon or fonts. Please try ``` react-native link ```
 
-or find out in [ here ][react-native-vector-icons]
-
-[ react-native-vector-icons] : https://github.com/oblador/react-native-vector-icons
+or find out in <https://github.com/oblador/react-native-vector-icons>

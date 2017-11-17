@@ -4,6 +4,7 @@ import { TabNavigator } from 'react-navigation'
 import { AppRegistry } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import MdIconPack from 'react-icons/lib/md'
+import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
  
 class MoviesAndTV extends React.Component {
   static navigationOptions = {
@@ -61,4 +62,4 @@ const MyApp = TabNavigator({
   }
 })
  
-AppRegistry.registerComponent('MyApp', () => MyApp)
+AppRegistry.registerComponent('BottomNavigation', () => MyApp)
