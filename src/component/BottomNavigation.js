@@ -1,10 +1,9 @@
 import React from 'react'
 import { NavigationComponent } from 'react-native-material-bottom-navigation'
-import { TabNavigator } from 'react-navigation'
 import { AppRegistry } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import MdIconPack from 'react-icons/lib/md'
-import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
+import {StackNavigator, NavigationActions, addNavigationHelpers, TabNavigator} from 'react-navigation';
  
 class MoviesAndTV extends React.Component {
   static navigationOptions = {
@@ -33,7 +32,7 @@ class Newsstand extends React.Component {
   render() { tabBarIcon }
 }
  
-const MyApp = TabNavigator({
+export default BottomNavigation = TabNavigator({
   MoviesAndTV: { screen: MoviesAndTV },
   Music: { screen: Music },
   Newsstand: { screen: Newsstand }
@@ -61,5 +60,3 @@ const MyApp = TabNavigator({
     }
   }
 })
- 
-AppRegistry.registerComponent('BottomNavigation', () => MyApp)

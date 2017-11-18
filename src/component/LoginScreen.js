@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, TouchableWithoutFeedback, Text, StyleSheet, Alert, Image} from 'react-native';
-//import {Container, Header, Content, Title, Left, Right, Body, Icon, Button, Item,  Input,Form,Label} from 'native-base';
+import {View, TouchableWithoutFeedback, Text, StyleSheet, Alert, Image, Picker} from 'react-native';
 import {Icon, Fab, Button, Toast, Container, Title, Input, InputGroup, Form, Label, Item, Content, Thumbnail} from 'native-base';
+// Styles
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
+import styles from '../styles/LoginScreenStyles'
+// Date picker
+import DatePicker from 'react-native-datepicker'
+// Navigation
+import {
+    StackNavigator,
+} from 'react-navigation';
+
 
 export default class LoginScreen extends React.Component{
     constructor(props){
@@ -14,17 +22,19 @@ export default class LoginScreen extends React.Component{
         this.handlePetName = this.handlePetName.bind(this);
         this.handlePetBirth = this.handlePetBirth.bind(this);
         this.handlePetWeight = this.handlePetBirth.bind(this);
+        this.handleDone = this.handleDone.bind(this);
         this.state = {
             name: '',
             email: '',
             petName: '',
             petBirth: '',
-            petWeight: 0
+            petWeight: 0,
+            pick: false
         }
     }
 
     handleEmail(event){
-        this.setState({emailvalue: event.nativeEvent.text});
+        this.setState({email: event.nativeEvent.text});
     }
     handleName(event){
         this.setState({name: event.nativeEvent.text});
@@ -33,13 +43,19 @@ export default class LoginScreen extends React.Component{
         this.setState({petName: event.nativeEvent.text});
     }
     handlePetBirth(event){
-        this.setState({petBirth: event.nativeEvent.text});
+        this.setState({petBirth: event.nativeEvent.text, pick: true});
     }
     handlePetWeight(event){
         this.setState({petWeight: event.nativeEvent.text});
     }
-    handleDone(event){
-        alert('done');
+    handleDone(){
+        if( this.state.name==='' || 
+            this.state.email===''||
+            this.state.petName===''||
+            this.state.petBirth===''||
+            this.state.petWeight==='')
+        alert('Please fill up the form!!')
+        else this.props.navigation.navigate('BottomBar');
     }
 
     render(){
@@ -58,16 +74,36 @@ export default class LoginScreen extends React.Component{
                     </InputGroup>
                     <InputGroup>
                         <Icon name='octocat' />
-                        <Input placeholder='PetName' value={this.state.petName} onChange={this.handlePetName}/>
+                        <Input placeholder="Pets' Name" value={this.state.petName} onChange={this.handlePetName}/>
                     </InputGroup>
                     <InputGroup>
                         <Icon name='open' />
-                        <Input placeholder='petWeight' value={this.state.petWeight} onChange={this.handlePetWeigh}/>
+                        <Input placeholder="Pet's Weight" value={this.state.petWeight} onChange={this.handlePetWeigh}/>
                     </InputGroup>
-                    <InputGroup>
-                        <Icon name='birthday' />
-                        <Input placeholder='petBirth' value={this.state.petBirth} onChange={this.handlePetBirth}/>
-                    </InputGroup>
+                    <DatePicker
+                        style={{width: 200}}
+                        date={this.state.petBirth}
+                        mode="date"
+                        placeholder="pets Birthday"
+                        format="YYYY-MM-DD"
+                        minDate="2016-05-01"
+                        maxDate="2019-06-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                        dateIcon: {
+                            position: 'absolute',
+                            left: 0,
+                            top: 4,
+                            marginLeft: 0
+                        },
+                        dateInput: {
+                            marginLeft: 36
+                        }
+                        // ... You can check the source to find the other keys.
+                        }}
+                        onDateChange={(date) => {this.setState({petBirth: date})}}
+                    />
                     <Content>
                     <Button large primary style={styles.buttons} onPress={this.handleDone} >
                         <Text style={styles.text}>Done</Text>
@@ -78,47 +114,3 @@ export default class LoginScreen extends React.Component{
         )
     }
 }
-const styles = {
-    images:{
-        height: 80,
-        width: 80,
-        alignItems: 'center',
-        alignSelf: 'center',
-        margin: 10,
-        borderRadius: 10
-    },
-    title:{
-      fontSize:20,
-      color:'rgba(0, 0, 0, 1)',
-      fontWeight:'bold',
-      marginTop: 50,
-      textAlign: 'center'
-    },
-    container:{
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      borderRadius: 1
-    },
-    content: {
-        backgroundColor: 'rgb(255, 255, 255)',
-        flex:1,
-        margin: 30,
-        borderRadius: 10
-    },
-    input: {
-        height: 100,
-        fontSize:90
-    },
-    buttons:{
-      marginTop:32,
-      width:270,
-      alignSelf:'center',
-      backgroundColor:'rgb(15, 100, 219)',
-      alignItems:'center',
-      borderRadius: 18
-    },
-    text:{
-      fontSize:26,
-      color:'white',
-      marginLeft:100
-    }
-};

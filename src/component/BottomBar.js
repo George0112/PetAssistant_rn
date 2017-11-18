@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { TabNavigator } from 'react-navigation';
 import {
   Platform,
   StyleSheet,
